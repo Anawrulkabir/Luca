@@ -16,19 +16,28 @@ import AdminRoute from './AdminRoute'
 import HostRoute from './HostRoute'
 import MyBookings from '../pages/Dashboard/Guest/MyBookings'
 import ManageBookings from '../pages/Dashboard/Host/ManageBookings'
+import HeroLayout from '../layouts/HeroLayout'
+import { Dashboard } from '@/components/shadcnui/Dashboard/Common/Dashboard1'
+import { ShadcnDashboardLayout } from '@/layouts/ShadcnDashboardLayout'
+import { Join } from '@/pages/Join/Join'
 
 export const router = createBrowserRouter([
   {
     path: '/',
+    element: <HeroLayout />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/home',
     element: <Main />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <Home />,
       },
       {
-        path: '/room/:id',
+        path: 'room/:id',
         element: (
           <PrivateRoute>
             <RoomDetails />
@@ -37,8 +46,9 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: '/login', element: <Login /> },
-  { path: '/signup', element: <SignUp /> },
+  // { path: '/login', element: <Login /> },
+  // { path: '/signup', element: <SignUp /> },
+  { path: '/join', element: <Join /> },
   {
     path: '/dashboard',
     element: (
@@ -112,5 +122,13 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: '/test-dashboard',
+    element: <Dashboard />,
+  },
+  {
+    path: '/shadcn-dashboard',
+    element: <ShadcnDashboardLayout />,
   },
 ])

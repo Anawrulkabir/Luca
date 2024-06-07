@@ -32,11 +32,11 @@ const AuthProvider = ({ children }) => {
   }
 
   const signInWithGoogle = () => {
-    setLoading(true)
+    // setLoading(true)
     return signInWithPopup(auth, googleProvider)
   }
 
-  const resetPassword = email => {
+  const resetPassword = (email) => {
     setLoading(true)
     return sendPasswordResetEmail(auth, email)
   }
@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
     })
   }
   // Get token from server
-  const getToken = async email => {
+  const getToken = async (email) => {
     const { data } = await axios.post(
       `${import.meta.env.VITE_API_URL}/jwt`,
       { email },
@@ -66,7 +66,7 @@ const AuthProvider = ({ children }) => {
   }
 
   // save user
-  const saveUser = async user => {
+  const saveUser = async (user) => {
     const currentUser = {
       email: user?.email,
       role: 'guest',
@@ -81,7 +81,7 @@ const AuthProvider = ({ children }) => {
 
   // onAuthStateChange
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
       if (currentUser) {
         getToken(currentUser.email)

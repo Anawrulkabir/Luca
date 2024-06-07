@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { ScaleLoader } from 'react-spinners'
+import { PiSpinnerGapLight } from 'react-icons/pi'
 
 const LoadingSpinner = ({ smallHeight }) => {
   return (
@@ -10,7 +10,7 @@ const LoadingSpinner = ({ smallHeight }) => {
       justify-center 
       items-center `}
     >
-      <ScaleLoader size={100} color='red' />
+      <PiSpinnerGapLight size={30} color="#08D4AC" className="animate-spin" />
     </div>
   )
 }

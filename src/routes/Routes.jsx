@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
-import Main from '../layouts/Main'
-import Home from '../pages/Home/Home'
+// import Main from '../layouts/Main'
+// import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
-import Login from '../pages/Login/Login'
-import SignUp from '../pages/SignUp/SignUp'
-import RoomDetails from '../pages/RoomDetails/RoomDetails'
+// import Login from '../pages/Login/Login'
+// import SignUp from '../pages/SignUp/SignUp'
+// import RoomDetails from '../pages/RoomDetails/RoomDetails'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import Statistics from '../pages/Dashboard/Common/Statistics'
@@ -18,8 +18,11 @@ import MyBookings from '../pages/Dashboard/Guest/MyBookings'
 import ManageBookings from '../pages/Dashboard/Host/ManageBookings'
 import HeroLayout from '../layouts/HeroLayout'
 import { Dashboard } from '@/components/shadcnui/Dashboard/Common/Dashboard1'
-import { ShadcnDashboardLayout } from '@/layouts/ShadcnDashboardLayout'
 import { Join } from '@/pages/Join/Join'
+import HomeLayout from '../layouts/HomeLayout'
+import BlogsPage from '@/pages/Blogs/BlogsPage'
+import Community from '@/pages/Community/Community'
+import About from '@/pages/About/About'
 
 export const router = createBrowserRouter([
   {
@@ -29,23 +32,39 @@ export const router = createBrowserRouter([
   },
   {
     path: '/home',
-    element: <Main />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: 'room/:id',
-        element: (
-          <PrivateRoute>
-            <RoomDetails />
-          </PrivateRoute>
-        ),
-      },
-    ],
+    element: <HomeLayout />,
   },
+  {
+    path: '/blogs',
+    element: <BlogsPage />,
+  },
+  {
+    path: '/community',
+    element: <Community />,
+  },
+  {
+    path: '/about',
+    element: <About />,
+  },
+  // {
+  //   path: '/home',
+  //   element: <Main />,
+  //   errorElement: <ErrorPage />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Home />,
+  //     },
+  //     {
+  //       path: 'room/:id',
+  //       element: (
+  //         <PrivateRoute>
+  //           <RoomDetails />
+  //         </PrivateRoute>
+  //       ),
+  //     },
+  //   ],
+  // },
   // { path: '/login', element: <Login /> },
   // { path: '/signup', element: <SignUp /> },
   { path: '/join', element: <Join /> },
@@ -126,9 +145,5 @@ export const router = createBrowserRouter([
   {
     path: '/test-dashboard',
     element: <Dashboard />,
-  },
-  {
-    path: '/shadcn-dashboard',
-    element: <ShadcnDashboardLayout />,
   },
 ])

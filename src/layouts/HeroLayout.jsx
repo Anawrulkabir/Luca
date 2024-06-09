@@ -5,17 +5,17 @@ import { useState } from 'react'
 import { PiSpinnerGapLight } from 'react-icons/pi'
 
 const HeroLayout = () => {
-  const [imageLoading, setImageLoading] = useState(true)
-  const [error, setError] = useState(false)
+  // const [imageLoading, setImageLoading] = useState(true)
+  // const [error, setError] = useState(false)
 
-  const handleImageLoad = () => {
-    setImageLoading(false)
-  }
+  // const handleImageLoad = () => {
+  //   setImageLoading(false)
+  // }
 
-  const handleImageError = () => {
-    setImageLoading(false)
-    setError(true)
-  }
+  // const handleImageError = () => {
+  //   setImageLoading(false)
+  //   setError(true)
+  // }
 
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
@@ -39,8 +39,9 @@ const HeroLayout = () => {
         <div>
           <img
             src="https://i.ibb.co/HtZ7XLd/luca-logo.png"
-            onLoad={handleImageLoad}
-            onError={handleImageError}
+            // onLoad={handleImageLoad}
+            // onError={handleImageError}
+            // TODO
             className="w-20   absolute left-1/2 -translate-x-1/2  z-20 "
           />
         </div>

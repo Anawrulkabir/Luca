@@ -7,6 +7,7 @@ import avatarImg from '../../../assets/images/placeholder.jpg'
 import HostModal from '../../Modal/HostRequestModal'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
 import toast from 'react-hot-toast'
+import { Profile } from '@/components/Homepage/Profile/Profile'
 
 const Navbar = () => {
   const axiosSecure = useAxiosSecure()
@@ -49,8 +50,6 @@ const Navbar = () => {
             {/* Logo */}
             <Link to="/">
               <img
-                // className='hidden md:block'
-                // src="https://i.ibb.co/4ZXzmq5/logo.png"
                 src="https://i.ibb.co/HtZ7XLd/luca-logo.png"
                 alt="logo"
                 width="50"

@@ -91,7 +91,7 @@ const HomeLayout = () => {
       </div>
 
       {/* tabs */}
-      <div className="flex justify-center ">
+      <div className="mx-4 lg:mx-12">
         <Tab />
       </div>
 

@@ -23,6 +23,7 @@ import HomeLayout from '../layouts/HomeLayout'
 import BlogsPage from '@/pages/Blogs/BlogsPage'
 import Community from '@/pages/Community/Community'
 import About from '@/pages/About/About'
+import PackageDetails from '@/pages/PackageDetails/PackageDetails'
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
   {
     path: '/about',
     element: <About />,
+  },
+  {
+    path: '/package/details/:id',
+    element: <PackageDetails />,
   },
   // {
   //   path: '/home',

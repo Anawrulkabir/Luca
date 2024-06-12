@@ -10,7 +10,11 @@ const LoadingSpinner = ({ smallHeight }) => {
       justify-center 
       items-center `}
     >
-      <PiSpinnerGapLight size={30} color="#08D4AC" className="animate-spin" />
+      <PiSpinnerGapLight
+        size={30}
+        // color="#08D4AC"
+        className="animate-spin text-green-700"
+      />
     </div>
   )
 }

@@ -9,24 +9,46 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@radix-ui/react-tooltip'
-
-const packages = [
-  {
-    title: 'Your call has been confirmed.',
-    description: '1 hour ago',
-  },
-  {
-    title: 'You have a new message!',
-    description: '1 hour ago',
-  },
-  {
-    title: 'Your subscription is expiring soon!',
-    description: '2 hours ago',
-  },
-]
+import { Skeleton } from '@/components/ui/skeleton'
+import { useState } from 'react'
 
 const PackageCard = ({ image, title, id, price }) => {
-  console.log(id)
+  // if (isLoading)
+  //   return (
+  //     <>
+  //       <div className="flex flex-col space-y-3">
+  //         <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+  //         <div className="space-y-2">
+  //           <Skeleton className="h-4 w-[250px]" />
+  //           <Skeleton className="h-4 w-[200px]" />
+  //         </div>
+  //       </div>
+  //       <div className="flex flex-col  space-y-3 overflow-hidden rounded-lg shadow-md pb-3">
+  //         <div className="">
+  //           <Skeleton className="rounded-xl w-full mb-4 h-60 sm:h-96" />
+  //           <div className="px-4">
+  //             <div className="flex items-center gap-5">
+  //               <Skeleton className="h-4 w-[124px]" />
+  //               <Skeleton className="h-4 w-[125px]" />
+  //             </div>
+  //             <Skeleton className="h-4 w-[200px]" />
+  //             <Skeleton className="h-10 w-[250px]" />
+  //           </div>
+  //         </div>
+  //         <div className="flex flex-wrap justify-between px-4 ">
+  //           <div className="space-x-2">
+  //             {/* share button */}
+  //             <Skeleton className="h-2 w-[100px]" />
+
+  //             {/* bookmark button */}
+  //             <Skeleton className="h-2 w-[100px]" />
+  //           </div>
+  //         </div>
+  //         <Skeleton className="h-5 w-[250px]" />
+  //       </div>
+  //     </>
+  //   )
+
   return (
     <div>
       <div className="flex flex-col  space-y-3 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800 pb-3">

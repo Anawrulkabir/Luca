@@ -27,7 +27,7 @@ const HomeLayout = () => {
 
           {/* Trusted partner section */}
           <h1 className="text-3xl font-bold text-zinc-800 text-center">
-            Our Trusted Partners
+            See Our Growth
           </h1>
 
           {/* sliding carossel */}

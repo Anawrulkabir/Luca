@@ -81,7 +81,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              href="#"
+              to="/test-dashboard"
               className="text-muted-foreground hover:text-foreground"
             >
               Dashboard

@@ -1,31 +1,13 @@
 import useAxiosCommon from '@/hooks/useAxiosCommon'
 import PackageCard from '../../Card/PackageCard'
-import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import LoadingSpinner from '@/components/Shared/LoadingSpinner'
-
-const packages = [
-  {
-    title: 'Your call has been confirmed.',
-    description: '1 hour ago',
-  },
-  {
-    title: 'You have a new message!',
-    description: '1 hour ago',
-  },
-  {
-    title: 'Your subscription is expiring soon!',
-    description: '2 hours ago',
-  },
-]
+import { Skeleton } from '@/components/ui/skeleton'
+import LoadingCart from '@/components/Sceleton/LoadingCart'
 
 export function Package() {
   const axiosCommon = useAxiosCommon()
-  // eslint-disable-next-line no-unused-vars
-  // const [params, setParams] = useSearchParams()
-  // const category = params.get('category')
+  const skeletons = Array.from({ length: 3 })
 
-  // console.log(category)
   const { data: packages = [], isLoading } = useQuery({
     queryKey: ['packages'],
     queryFn: async () => {
@@ -36,7 +18,15 @@ export function Package() {
   })
   console.log(packages)
 
-  if (isLoading) return <LoadingSpinner />
+  if (isLoading)
+    return (
+      <div className="grid md:grid-cols-3 gap-8 grid-cols-1 ">
+        {skeletons.map((_, index) => (
+          <LoadingCart key={index} />
+        ))}
+      </div>
+    )
+
   return (
     <div className="grid md:grid-cols-3 gap-8 grid-cols-1 ">
       {packages.map((item) => (
@@ -46,6 +36,7 @@ export function Package() {
           title={item.packageName}
           id={item?._id}
           price={item?.bookingForm?.price}
+          isLoading={isLoading}
         />
       ))}
     </div>

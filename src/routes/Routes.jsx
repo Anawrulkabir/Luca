@@ -24,6 +24,8 @@ import BlogsPage from '@/pages/Blogs/BlogsPage'
 import Community from '@/pages/Community/Community'
 import About from '@/pages/About/About'
 import PackageDetails from '@/pages/PackageDetails/PackageDetails'
+import TourGuideDetails from '@/pages/TourGuide/TourGuideDetails'
+import AddPackage from '@/pages/Dashboard/Admin/AddPackage'
 
 export const router = createBrowserRouter([
   {
@@ -51,27 +53,10 @@ export const router = createBrowserRouter([
     path: '/package/details/:id',
     element: <PackageDetails />,
   },
-  // {
-  //   path: '/home',
-  //   element: <Main />,
-  //   errorElement: <ErrorPage />,
-  //   children: [
-  //     {
-  //       index: true,
-  //       element: <Home />,
-  //     },
-  //     {
-  //       path: 'room/:id',
-  //       element: (
-  //         <PrivateRoute>
-  //           <RoomDetails />
-  //         </PrivateRoute>
-  //       ),
-  //     },
-  //   ],
-  // },
-  // { path: '/login', element: <Login /> },
-  // { path: '/signup', element: <SignUp /> },
+  {
+    path: '/tourGuideDetails/:id',
+    element: <TourGuideDetails />,
+  },
   { path: '/join', element: <Join /> },
   {
     path: '/dashboard',
@@ -150,5 +135,36 @@ export const router = createBrowserRouter([
   {
     path: '/test-dashboard',
     element: <Dashboard />,
+    children: [
+      {
+        path: 'profile',
+        element: <Profile />,
+      },
+      {
+        path: 'addPackage',
+        element: <AddPackage />,
+      },
+    ],
   },
+  // {
+  //   path: '/home',
+  //   element: <Main />,
+  //   errorElement: <ErrorPage />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Home />,
+  //     },
+  //     {
+  //       path: 'room/:id',
+  //       element: (
+  //         <PrivateRoute>
+  //           <RoomDetails />
+  //         </PrivateRoute>
+  //       ),
+  //     },
+  //   ],
+  // },
+  // { path: '/login', element: <Login /> },
+  // { path: '/signup', element: <SignUp /> },
 ])

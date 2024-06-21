@@ -142,7 +142,7 @@ export function Dashboard() {
                     Add Packages
                   </Link>
                   <Link
-                    href="#"
+                    to={'/test-dashboard/manageUser'}
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   >
                     <AiOutlineUserSwitch className="h-4 w-4" />
@@ -252,7 +252,7 @@ export function Dashboard() {
                       Add Packages
                     </Link>
                     <Link
-                      href="#"
+                      to={'/test-dashboard/manageUser'}
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                     >
                       <AiOutlineUserSwitch className="h-5 w-5" />

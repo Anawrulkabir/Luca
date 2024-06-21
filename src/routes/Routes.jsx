@@ -144,6 +144,10 @@ export const router = createBrowserRouter([
         path: 'addPackage',
         element: <AddPackage />,
       },
+      {
+        path: 'manageUser',
+        element: <ManageUsers />,
+      },
     ],
   },
   // {

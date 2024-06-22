@@ -30,7 +30,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import useRole from '@/hooks/useRole'
 import useAuth from '@/hooks/useAuth'
 
@@ -52,10 +52,34 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { axiosSecure } from '@/hooks/useAxiosSecure'
+import { toast } from '@/components/ui/use-toast'
 
 export function Dashboard() {
   const [role, isLoading] = useRole()
   const { user, logOut } = useAuth()
+  const navigate = useNavigate()
+
+  const modalHandler = async () => {
+    console.log('I want to be a host')
+    try {
+      const currentUser = {
+        email: user?.email,
+        role: 'guest',
+        status: 'Requested',
+      }
+      const { data } = await axiosSecure.put(`/user`, currentUser)
+      console.log(data)
+      if (data.modifiedCount > 0) {
+        toast.success('Success! Please wait for admin confirmation')
+      } else {
+        toast.success('Please!, Wait for admin approval👊')
+      }
+    } catch (err) {
+      console.log(err)
+      toast.error(err.message)
+    }
+  }
   console.log(role)
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -93,8 +117,8 @@ export function Dashboard() {
 
               {/* profile */}
               <Link
-                to={'/test-dashboard/profile'}
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                to={'/test-dashboard'}
+                className=" flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
               >
                 <Home className="h-4 w-4" />
                 My Profile
@@ -102,7 +126,7 @@ export function Dashboard() {
 
               {role === 'host' && (
                 <Link
-                  href="#"
+                  to={'/test-dashboard/assignedTour'}
                   className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                 >
                   <PiPaperPlaneTiltLight className="h-4 w-4" />
@@ -110,10 +134,10 @@ export function Dashboard() {
                 </Link>
               )}
 
-              {role === 'guest' && (
+              {role !== 'guest' && role !== 'host' && (
                 <>
                   <Link
-                    href="#"
+                    to={'/test-dashboard/myBookings'}
                     className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                   >
                     <ShoppingCart className="h-4 w-4" />
@@ -123,7 +147,7 @@ export function Dashboard() {
                     </Badge>
                   </Link>
                   <Link
-                    href="#"
+                    to={'/test-dashboard/wishlists'}
                     className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
                   >
                     <Package className="h-4 w-4" />
@@ -155,7 +179,7 @@ export function Dashboard() {
           <div className="mt-auto p-4">
             {/* request for guide - only for tourist/guest */}
 
-            {role === 'guest' && (
+            {role !== 'host' && role !== 'admin' && (
               <Card x-chunk="dashboard-02-chunk-0">
                 <CardHeader className="p-2 pt-0 md:p-4">
                   <CardTitle>Become a Guide</CardTitle>
@@ -165,7 +189,7 @@ export function Dashboard() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                  <Button size="sm" className="w-full">
+                  <Button size="sm" className="w-full" onClick={modalHandler}>
                     Request
                   </Button>
                 </CardContent>
@@ -200,17 +224,17 @@ export function Dashboard() {
                 </Link>
 
                 <Link
-                  to={'/test-dashboard/profile'}
-                  className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                  to={'/test-dashboard'}
+                  className=" mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                 >
                   <Home className="h-5 w-5" />
                   My Profile
                 </Link>
 
                 {/* Guest/tourist */}
-                {role === 'guest' && (
+                {role === 'host' && (
                   <Link
-                    href="#"
+                    to={'/test-dashboard/assignedTour'}
                     className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                   >
                     <PiPaperPlaneTiltLight className="h-5 w-5" />
@@ -219,10 +243,10 @@ export function Dashboard() {
                 )}
 
                 {/* host/guide */}
-                {role === 'host' && (
+                {role !== 'host' && role !== 'admin' && (
                   <>
                     <Link
-                      href="#"
+                      to={'/test-dashboard/myBookings'}
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
                     >
                       <ShoppingCart className="h-5 w-5" />
@@ -232,7 +256,7 @@ export function Dashboard() {
                       </Badge>
                     </Link>
                     <Link
-                      href="#"
+                      to={'/test-dashboard/wishlists'}
                       className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
                     >
                       <Package className="h-5 w-5" />
@@ -262,7 +286,7 @@ export function Dashboard() {
                 )}
               </nav>
 
-              {role === 'guest' && (
+              {role !== 'host' && role !== 'admin' && (
                 <div className="mt-auto">
                   <Card>
                     <CardHeader>
@@ -273,7 +297,11 @@ export function Dashboard() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Button size="sm" className="w-full">
+                      <Button
+                        size="sm"
+                        className="w-full"
+                        onClick={modalHandler}
+                      >
                         Upgrade
                       </Button>
                     </CardContent>
@@ -314,7 +342,14 @@ export function Dashboard() {
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <button onClick={logOut}>Logout</button>
+                <button
+                  onClick={() => {
+                    logOut()
+                    navigate('/home')
+                  }}
+                >
+                  Logout
+                </button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

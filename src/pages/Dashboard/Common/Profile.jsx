@@ -5,10 +5,11 @@ import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
 
 const Profile = () => {
   const { user, loading } = useAuth() || {}
-  const [role, isLoading] = useRole()
+  const [role] = useRole()
 
+  console.log(role)
   console.log(user)
-  if (isLoading || loading) return <LoadingSpinner />
+  // if (isLoading || loading) return <LoadingSpinner />
   return (
     <div>
       <Helmet>

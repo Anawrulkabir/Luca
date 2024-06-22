@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import UpdateUserModal from '../../Modal/UpdateUserModal'
 import { useMutation } from '@tanstack/react-query'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
 import toast from 'react-hot-toast'
@@ -9,7 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { TableCell, TableRow } from '@/components/ui/table'
@@ -22,7 +20,6 @@ const UserDataRow = ({ user, refetch }) => {
   const { user: loggedInUser } = useAuth()
   const [selected, setSelected] = useState(user.role)
 
-  const [isOpen, setIsOpen] = useState(false)
   const axiosSecure = useAxiosSecure()
   const { mutateAsync } = useMutation({
     mutationFn: async (role) => {
@@ -36,7 +33,6 @@ const UserDataRow = ({ user, refetch }) => {
       refetch()
       console.log(data)
       toast.success('User role updated successfully!')
-      setIsOpen(false)
     },
   })
 
@@ -44,7 +40,7 @@ const UserDataRow = ({ user, refetch }) => {
   const modalHandler = async (selected) => {
     if (loggedInUser.email === user.email) {
       toast.error('Action Not Allowed')
-      return setIsOpen(false)
+      return
     }
 
     const userRole = {
@@ -69,47 +65,6 @@ const UserDataRow = ({ user, refetch }) => {
   }
   console.log(selected)
   return (
-    // <tr>
-    //   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-    //     <p className='text-gray-900 whitespace-no-wrap'>{user?.email}</p>
-    //   </td>
-    //   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-    //     <p className='text-gray-900 whitespace-no-wrap'>{user?.role}</p>
-    //   </td>
-    //   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-    //     {user?.status ? (
-    //       <p
-    //         className={`${
-    //           user.status === 'Verified' ? 'text-green-500' : 'text-yellow-500'
-    //         } whitespace-no-wrap`}
-    //       >
-    //         {user.status}
-    //       </p>
-    //     ) : (
-    //       <p className='text-red-500 whitespace-no-wrap'>Unavailable</p>
-    //     )}
-    //   </td>
-
-    //   <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-    //     <button
-    //       onClick={() => setIsOpen(true)}
-    //       className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
-    //     >
-    //       <span
-    //         aria-hidden='true'
-    //         className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-    //       ></span>
-    //       <span className='relative'>Update Role</span>
-    //     </button>
-    //     {/* Update User Modal */}
-    //     <UpdateUserModal
-    //       isOpen={isOpen}
-    //       setIsOpen={setIsOpen}
-    //       modalHandler={modalHandler}
-    //       user={user}
-    //     />
-    //   </td>
-    // </tr>
     <TableRow key={user?._id}>
       <TableCell className="hidden sm:table-cell">
         <img
@@ -124,23 +79,7 @@ const UserDataRow = ({ user, refetch }) => {
         {user?.email.split('@')[0]}
       </TableCell>
       <TableCell>
-        {/* <DropdownMenu onOpenChange={() => check(selected)}>
-          <DropdownMenuTrigger asChild>
-            <Button aria-haspopup="true" size="icon" variant="ghost">
-              <Badge variant="outline">{user?.role}</Badge>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            value={selected}
-            onChange={setSelected}
-          >
-            <DropdownMenuLabel value="admin">Admin</DropdownMenuLabel>
-            <DropdownMenuItem value="guide">Guide</DropdownMenuItem>
-            <DropdownMenuItem value="tourist">Torist</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu> */}
-        <DropdownMenu onOpenChange={() => modalHandler(selected)}>
+        <DropdownMenu onClick={() => modalHandler(selected)}>
           <DropdownMenuTrigger asChild>
             <Button aria-haspopup="true" size="icon" variant="ghost">
               <Badge variant="outline">{user?.role}</Badge>

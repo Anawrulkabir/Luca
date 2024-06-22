@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { TableCell, TableRow } from '@/components/ui/table'
-const BookingDataRow = ({ booking, refetch }) => {
+const WishlistRow = ({ booking, refetch }) => {
   const axiosSecure = useAxiosSecure()
   const [isOpen, setIsOpen] = useState(false)
   const closeModal = () => {
@@ -115,36 +115,37 @@ const BookingDataRow = ({ booking, refetch }) => {
         </td>
       </tr>
       <TableRow>
-        <TableCell className="hidden sm:table-cell">
+        <TableCell className=" sm:table-cell">
           <img
             alt="Product img"
             className="h-10 w-16 rounded-md object-cover"
             src="https://ui.shadcn.com/placeholder.svg"
           />
         </TableCell>
-        <TableCell className="font-medium">Laser Lemonade Machine</TableCell>
-        <TableCell>
-          <Badge variant="outline">Draft</Badge>
+        <TableCell className="font-medium hidden md:table-cell">
+          Laser Lemonade Machine
         </TableCell>
+        {/* <TableCell>
+                <Badge variant="outline">In Review</Badge>
+              </TableCell> */}
         <TableCell className="hidden md:table-cell">$499.99</TableCell>
         <TableCell className="hidden md:table-cell">
           2023-07-12 10:42 AM
         </TableCell>
         <TableCell>
-          {}
           <Button
             size="sm"
             variant=""
-            className="bg-blue-600  text-white hover:bg-blue-300"
+            className="bg-blue-600  text-white hover:bg-blue-300 mr-2 "
           >
-            Cencel
+            Delete
           </Button>
           <Button
             size="sm"
             variant=""
-            className="bg-blue-600  text-white hover:bg-blue-300"
+            className="bg-blue-600  text-white hover:bg-blue-300 "
           >
-            Pay
+            View Details
           </Button>
         </TableCell>
       </TableRow>
@@ -152,9 +153,9 @@ const BookingDataRow = ({ booking, refetch }) => {
   )
 }
 
-BookingDataRow.propTypes = {
+WishlistRow.propTypes = {
   booking: PropTypes.object,
   refetch: PropTypes.func,
 }
 
-export default BookingDataRow
+export default WishlistRow

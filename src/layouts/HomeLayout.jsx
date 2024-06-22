@@ -31,7 +31,7 @@ const HomeLayout = () => {
           </h1>
 
           {/* sliding carossel */}
-          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 mb-8 md:mb-12">
             <Card x-chunk="dashboard-01-chunk-0">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
@@ -49,7 +49,7 @@ const HomeLayout = () => {
             <Card x-chunk="dashboard-01-chunk-1">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Subscriptions
+                  Package Purchaged
                 </CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -62,7 +62,9 @@ const HomeLayout = () => {
             </Card>
             <Card x-chunk="dashboard-01-chunk-2">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                <CardTitle className="text-sm font-medium">
+                  Happy Customers
+                </CardTitle>
                 <CreditCard className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
@@ -75,12 +77,12 @@ const HomeLayout = () => {
             <Card x-chunk="dashboard-01-chunk-3">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Active Now
+                  Active Packages
                 </CardTitle>
                 <Activity className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+573</div>
+                <div className="text-2xl font-bold">+53</div>
                 <p className="text-xs text-muted-foreground">
                   +201 since last hour
                 </p>
@@ -96,7 +98,10 @@ const HomeLayout = () => {
       </div>
 
       {/* tour type */}
-      <div className="flex justify-center px-8 my-8">
+      <h1 className="text-3xl font-bold text-zinc-800 text-center mt-10">
+        Tour Types
+      </h1>
+      <div className="flex justify-center px-8 ">
         <TourType />
       </div>
 

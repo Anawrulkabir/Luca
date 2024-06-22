@@ -26,6 +26,8 @@ import About from '@/pages/About/About'
 import PackageDetails from '@/pages/PackageDetails/PackageDetails'
 import TourGuideDetails from '@/pages/TourGuide/TourGuideDetails'
 import AddPackage from '@/pages/Dashboard/Admin/AddPackage'
+import Wishlists from '@/pages/Dashboard/Guest/Wishlists'
+import AllPackages from '@/pages/AllPackages/AllPackages'
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +60,10 @@ export const router = createBrowserRouter([
     element: <TourGuideDetails />,
   },
   { path: '/join', element: <Join /> },
+  {
+    path: '/allPackages',
+    element: <AllPackages />,
+  },
   {
     path: '/dashboard',
     element: (
@@ -137,7 +143,7 @@ export const router = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: 'profile',
+        index: true,
         element: <Profile />,
       },
       {
@@ -147,6 +153,18 @@ export const router = createBrowserRouter([
       {
         path: 'manageUser',
         element: <ManageUsers />,
+      },
+      {
+        path: 'assignedTour',
+        element: <ManageBookings />,
+      },
+      {
+        path: 'myBookings',
+        element: <MyBookings />,
+      },
+      {
+        path: 'wishlists',
+        element: <Wishlists />,
       },
     ],
   },

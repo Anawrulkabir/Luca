@@ -49,7 +49,7 @@ const features = [
 
 export function Overview() {
   return (
-    <section className=" lg:p-8 dark:bg-gray-100 dark:text-gray-800">
+    <section className=" lg:p-8 mt-8 dark:bg-gray-100 dark:text-gray-800">
       <div className="lg:container mx-auto lg:space-y-12 space-y-6">
         {features.map((feature, index) => (
           <div

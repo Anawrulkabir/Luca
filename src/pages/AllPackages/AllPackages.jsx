@@ -37,7 +37,8 @@ const AllPackages = () => {
   return (
     <>
       <Navbar />
-      <div className="grid md:grid-cols-3 gap-8 grid-cols-1 mt-8 mx-4 lg:mx-12">
+      <h1 className="text-3xl font-bold text-center my-10">All Packages</h1>
+      <div className="grid md:grid-cols-3 gap-8 grid-cols-1 mt-8 mx-4 lg:mx-12 my-10">
         {packages.map((item) => (
           <PackageCard
             key={item._id}

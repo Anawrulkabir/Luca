@@ -3,14 +3,17 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import DeleteModal from '../../Modal/DeleteModal'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { TableCell, TableRow } from '@/components/ui/table'
+import { axiosCommon } from '@/hooks/useAxiosCommon'
+import { Link, useParams } from 'react-router-dom'
 const WishlistRow = ({ booking, refetch }) => {
   const axiosSecure = useAxiosSecure()
   const [isOpen, setIsOpen] = useState(false)
+
   const closeModal = () => {
     setIsOpen(false)
   }
@@ -18,25 +21,21 @@ const WishlistRow = ({ booking, refetch }) => {
   //   delete
   const { mutateAsync } = useMutation({
     mutationFn: async (id) => {
-      const { data } = await axiosSecure.delete(`/booking/${id}`)
+      const { data } = await axiosSecure.delete(`/wishlist/${id}`)
       return data
     },
     onSuccess: async (data) => {
       console.log(data)
       refetch()
       toast.success('Booking Canceled')
-      //   Change Room booked status back to false
-      await axiosSecure.patch(`/room/status/${booking?.roomId}`, {
-        status: false,
-      })
     },
   })
 
   //  Handle Delete
-  const handleDelete = async (id) => {
-    console.log(id)
+  const handleDelete = async () => {
+    // console.log(id)
     try {
-      await mutateAsync(id)
+      await mutateAsync(booking?._id)
     } catch (err) {
       console.log(err)
     }
@@ -86,12 +85,12 @@ const WishlistRow = ({ booking, refetch }) => {
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {format(new Date(booking?.from), 'P')}
+            {/* {format(new Date(booking?.from), 'P')} */}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {format(new Date(booking?.to), 'P')}
+            {/* {format(new Date(booking?.to), 'P')} */}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -119,34 +118,43 @@ const WishlistRow = ({ booking, refetch }) => {
           <img
             alt="Product img"
             className="h-10 w-16 rounded-md object-cover"
-            src="https://ui.shadcn.com/placeholder.svg"
+            src={
+              booking?.image
+                ? booking?.image
+                : 'https://ui.shadcn.com/placeholder.svg'
+            }
           />
         </TableCell>
         <TableCell className="font-medium hidden md:table-cell">
-          Laser Lemonade Machine
+          {booking?.name}
         </TableCell>
         {/* <TableCell>
                 <Badge variant="outline">In Review</Badge>
               </TableCell> */}
-        <TableCell className="hidden md:table-cell">$499.99</TableCell>
+        <TableCell className="hidden md:table-cell">
+          ${booking?.price}
+        </TableCell>
         <TableCell className="hidden md:table-cell">
           2023-07-12 10:42 AM
         </TableCell>
         <TableCell>
           <Button
+            onClick={handleDelete}
             size="sm"
             variant=""
             className="bg-blue-600  text-white hover:bg-blue-300 mr-2 "
           >
             Delete
           </Button>
-          <Button
-            size="sm"
-            variant=""
-            className="bg-blue-600  text-white hover:bg-blue-300 "
-          >
-            View Details
-          </Button>
+          <Link to={`/package/details/${booking?.packageId}`}>
+            <Button
+              size="sm"
+              variant=""
+              className="bg-blue-600  text-white hover:bg-blue-300 "
+            >
+              View Details
+            </Button>
+          </Link>
         </TableCell>
       </TableRow>
     </>

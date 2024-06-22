@@ -1,7 +1,7 @@
 import { FcAlarmClock } from 'react-icons/fc'
 import { LuCalendarDays } from 'react-icons/lu'
 import { Button } from '@/components/ui/button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { HiOutlineStar } from 'react-icons/hi2'
 import { BiDollar } from 'react-icons/bi'
 import {
@@ -12,6 +12,11 @@ import {
 import { GoHeart } from 'react-icons/go'
 import { GoHeartFill } from 'react-icons/go'
 import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { axiosSecure } from '@/hooks/useAxiosSecure'
+import toast from 'react-hot-toast'
+import useAuth from '@/hooks/useAuth'
+import useRole from '@/hooks/useRole'
 
 const PackageCard = ({ image, title, id, price }) => {
   // if (isLoading)
@@ -51,9 +56,40 @@ const PackageCard = ({ image, title, id, price }) => {
   //   )
 
   const [clicked, setClicked] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const { user } = useAuth()
+  const [role, isLoading] = useRole()
+  const navigate = useNavigate()
 
-  const handleBookmark = () => {
+  const { mutateAsync } = useMutation({
+    mutationFn: async (packageData) => {
+      const { data } = await axiosSecure.post(`/addToWishlist`, packageData)
+      return data
+    },
+    onSuccess: () => {
+      console.log('Added to wishlist.')
+      toast.success('Added to wishlist.')
+      navigate('/test-dashboard/wishlists')
+      setLoading(false)
+    },
+  })
+
+  const handleBookmark = async () => {
+    const packageInfo = {
+      name: user?.displayName,
+      email: user?.email,
+      packageId: id,
+      image: image,
+      price: price,
+    }
     setClicked(!clicked)
+    console.log(user, id)
+
+    try {
+      await mutateAsync(packageInfo)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

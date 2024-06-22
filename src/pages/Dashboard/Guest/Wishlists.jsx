@@ -27,9 +27,10 @@ import {
 } from '@/components/ui/table'
 import useAuth from '@/hooks/useAuth'
 import useAxiosSecure from '@/hooks/useAxiosSecure'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import LoadingSpinner from '@/components/Shared/LoadingSpinner'
 import WishlistRow from '@/components/Dashboard/TableRows/WishlistRow'
+import toast from 'react-hot-toast'
 
 export default function Wishlists() {
   const { user } = useAuth()
@@ -40,9 +41,9 @@ export default function Wishlists() {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['my-bookings', user?.email],
+    queryKey: ['wishlist', user?.email],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/my-bookings/${user?.email}`)
+      const { data } = await axiosSecure.get(`/wishlist/${user?.email}`)
 
       return data
     },
@@ -81,42 +82,6 @@ export default function Wishlists() {
                 refetch={refetch}
               />
             ))}
-            <TableRow>
-              <TableCell className=" sm:table-cell">
-                <img
-                  alt="Product img"
-                  className="h-10 w-16 rounded-md object-cover"
-                  src="https://ui.shadcn.com/placeholder.svg"
-                />
-              </TableCell>
-              <TableCell className="font-medium hidden md:table-cell">
-                Laser Lemonade Machine
-              </TableCell>
-              {/* <TableCell>
-                <Badge variant="outline">In Review</Badge>
-              </TableCell> */}
-              <TableCell className="hidden md:table-cell">$499.99</TableCell>
-              <TableCell className="hidden md:table-cell">
-                2023-07-12 10:42 AM
-              </TableCell>
-              <TableCell>
-                {}
-                <Button
-                  size="sm"
-                  variant=""
-                  className="bg-blue-600  text-white hover:bg-blue-300 mr-2 "
-                >
-                  Delete
-                </Button>
-                <Button
-                  size="sm"
-                  variant=""
-                  className="bg-blue-600  text-white hover:bg-blue-300 "
-                >
-                  View Details
-                </Button>
-              </TableCell>
-            </TableRow>
           </TableBody>
         </Table>
       </CardContent>

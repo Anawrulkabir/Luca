@@ -54,32 +54,74 @@ import {
 } from '@/components/ui/table'
 import { axiosSecure } from '@/hooks/useAxiosSecure'
 import { toast } from '@/components/ui/use-toast'
+import BackButton from '@/components/Shared/Button/BackButton'
+import FullscreenButton from '@/components/Shared/FullScreen/FullscreenButton'
 
 export function Dashboard() {
   const [role, isLoading] = useRole()
   const { user, logOut } = useAuth()
   const navigate = useNavigate()
 
+  // const modalHandler = async () => {
+  //   console.log('I want to be a Guide')
+  //   try {
+  //     const currentUser = {
+  //       email: user?.email,
+  //       role: 'guest',
+  //       status: 'Requested',
+  //     }
+  //     const { data } = await axiosSecure.put(`/user`, currentUser)
+  //     console.log(data)
+  //     if (data.modifiedCount > 0) {
+  //       toast({
+  //         description: 'Success! Please wait for admin confirmation',
+  //       })
+  //     } else {
+  //       toast({
+  //         description: 'Please!, Wait for admin approval👊',
+  //       })
+  //     }
+  //   } catch (err) {
+  //     console.log(err)
+
+  //     toast({
+  //       title: 'Uh oh! Something went wrong.',
+  //       description: err.message,
+  //     })
+  //   }
+  // }
+
   const modalHandler = async () => {
-    console.log('I want to be a host')
+    console.log('I want to be a Guide')
     try {
       const currentUser = {
         email: user?.email,
         role: 'guest',
         status: 'Requested',
       }
+      console.log('Current User:', currentUser) // Add this line to log currentUser
+
       const { data } = await axiosSecure.put(`/user`, currentUser)
-      console.log(data)
+      console.log('Server Response:', data)
       if (data.modifiedCount > 0) {
-        toast.success('Success! Please wait for admin confirmation')
+        toast({
+          description: 'Success! Please wait for admin confirmation',
+        })
       } else {
-        toast.success('Please!, Wait for admin approval👊')
+        toast({
+          description: 'Please!, Wait for admin approval👊',
+        })
       }
     } catch (err) {
       console.log(err)
-      toast.error(err.message)
+
+      toast({
+        title: 'Uh oh! Something went wrong.',
+        description: err.message,
+      })
     }
   }
+
   console.log(role)
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -302,7 +344,7 @@ export function Dashboard() {
                         className="w-full"
                         onClick={modalHandler}
                       >
-                        Upgrade
+                        Request
                       </Button>
                     </CardContent>
                   </Card>
@@ -310,7 +352,7 @@ export function Dashboard() {
               )}
             </SheetContent>
           </Sheet>
-          <div className="w-full flex-1">
+          <div className="w-full flex-1 ">
             <form>
               <div className="relative">
                 <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -322,6 +364,9 @@ export function Dashboard() {
               </div>
             </form>
           </div>
+          <Link to="/home">
+            <Button variant="outline">Home</Button>
+          </Link>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">
@@ -354,6 +399,8 @@ export function Dashboard() {
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
+        <BackButton />
+        <FullscreenButton />
         {/* <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           <div className="flex items-center">
             <h1 className="text-lg font-semibold md:text-2xl">Inventory</h1>

@@ -101,7 +101,7 @@ export function Dashboard() {
       }
       console.log('Current User:', currentUser) // Add this line to log currentUser
 
-      const { data } = await axiosSecure.put(`/user`, currentUser)
+      const { data } = await axiosSecure.put('/user', currentUser)
       console.log('Server Response:', data)
       if (data.modifiedCount > 0) {
         toast({

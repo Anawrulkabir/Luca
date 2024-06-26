@@ -1,13 +1,6 @@
-# stayVista-starter-template
-
-### Important Links:
-
-- [StayVista Resources](https://github.com/shakilahmedatik/b9-stayVista-resources)
-- [Project Requirement Doc](https://docs.google.com/document/d/1rzueKvZTinMb3XY7cuDNH0S0d_l8CflG1H95VUi2Dto/edit?usp=sharing)
-
 ### Packages and api docs used in this project:
 
-- [@headlessui/react](https://www.npmjs.com/package/@headlessui/react)
+- [shadcnui](https://ui.shadcn.com/)
 - [IMGBB Api](https://api.imgbb.com/)
 - [@tanstack/react-query](https://www.npmjs.com/package/@tanstack/react-query)
 - [axios](https://www.npmjs.com/package/axios)
